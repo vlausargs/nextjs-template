@@ -1,5 +1,3 @@
-"use client";
-
 import { Hydrate as HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 

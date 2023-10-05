@@ -4,7 +4,7 @@ import { columns } from "@/components/item/itemColumns";
 import DataTable from "@/components/ui/ue/datatable";
 import { listItem } from "@/shared/service/items/list";
 import { Item } from "@/shared/types/item";
-import { getQueryClient } from "@/shared/utils/queryClient";
+import { getCacheQueryClient } from "@/shared/utils/queryClient";
 
 import React, { useEffect, useState } from "react";
 

@@ -2,10 +2,9 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { LOGIN, login } from "@/shared/service/auth";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/shared/service/auth";
 import { useRouter } from "next/navigation";
 
 export default function LoginCard() {
