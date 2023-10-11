@@ -17,74 +17,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/ui/ue/data-table-column-header";
 import { DataTableRowActions } from "@/components/ui/ue/data-table-row-actions";
 
-export const taskSchema = z.object({
+export const itemSchema = z.object({
   id: z.string(),
-  title: z.string(),
+  sku: z.string(),
+  name: z.string(),
+  desc: z.string(),
+  price: z.number(),
   status: z.string(),
-  label: z.string(),
-  priority: z.string(),
 });
 
-export type Task = z.infer<typeof taskSchema>;
+export type Task = z.infer<typeof itemSchema>;
 
-const labels = [
-  {
-    value: "bug",
-    label: "Bug",
-  },
-  {
-    value: "feature",
-    label: "Feature",
-  },
-  {
-    value: "documentation",
-    label: "Documentation",
-  },
-];
-const statuses = [
-  {
-    value: "backlog",
-    label: "Backlog",
-    icon: QuestionMarkCircledIcon,
-  },
-  {
-    value: "todo",
-    label: "Todo",
-    icon: CircleIcon,
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-    icon: StopwatchIcon,
-  },
-  {
-    value: "done",
-    label: "Done",
-    icon: CheckCircledIcon,
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-    icon: CrossCircledIcon,
-  },
-];
-const priorities = [
-  {
-    label: "Low",
-    value: "low",
-    icon: ArrowDownIcon,
-  },
-  {
-    label: "Medium",
-    value: "medium",
-    icon: ArrowRightIcon,
-  },
-  {
-    label: "High",
-    value: "high",
-    icon: ArrowUpIcon,
-  },
-];
 export const columns: ColumnDef<Task>[] = [
   {
     id: "select",
@@ -115,59 +58,61 @@ export const columns: ColumnDef<Task>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
+    accessorKey: "sku",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="SKU" />,
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
-
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
-          <span className="max-w-[500px] truncate font-medium">{row.getValue("title")}</span>
+          <span className="max-w-[500px] truncate font-medium">{row.getValue("sku")}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "name",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">{row.getValue("name")}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "desc",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Description" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">{row.getValue("desc")}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "price",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Price" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">{row.getValue("price")}</span>
         </div>
       );
     },
   },
   {
     accessorKey: "status",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="status" />,
     cell: ({ row }) => {
-      const status = statuses.find((status) => status.value === row.getValue("status"));
-
-      if (!status) {
-        return null;
-      }
-
       return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />}
-          <span>{status.label}</span>
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">{row.getValue("status")}</span>
         </div>
       );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "priority",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Priority" />,
-    cell: ({ row }) => {
-      const priority = priorities.find((priority) => priority.value === row.getValue("priority"));
-
-      if (!priority) {
-        return null;
-      }
-
-      return (
-        <div className="flex items-center">
-          {priority.icon && <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />}
-          <span>{priority.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      return value.includes(row.getValue("status"));
     },
   },
   {

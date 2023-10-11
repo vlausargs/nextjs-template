@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { z } from "zod";
+import { itemSchema } from "@/shared/types/item_type";
 
 const labels = [
   {
@@ -33,13 +34,7 @@ const labels = [
     label: "Documentation",
   },
 ];
-export const taskSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  status: z.string(),
-  label: z.string(),
-  priority: z.string(),
-});
+export const taskSchema = itemSchema;
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -61,7 +56,7 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuSub>
+        {/* <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             <DropdownMenuRadioGroup value={task.label}>
@@ -72,7 +67,7 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
               ))}
             </DropdownMenuRadioGroup>
           </DropdownMenuSubContent>
-        </DropdownMenuSub>
+        </DropdownMenuSub> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           Delete

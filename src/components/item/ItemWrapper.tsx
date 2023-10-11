@@ -1,17 +1,17 @@
 import { LIST_ITEM, listItem } from "@/shared/service/items/list";
 import { getCacheQueryClient } from "@/shared/utils/queryClient";
 import React from "react";
-import ItemLayout from "./item";
+import ItemList from "./item";
 import { dehydrate } from "@tanstack/react-query";
 import Hydrate from "../Hydrate";
 
 export default async function ItemWrapper() {
   const queryClient = getCacheQueryClient();
-  await queryClient.prefetchQuery(LIST_ITEM, listItem);
+  await queryClient.prefetchQuery({ queryKey: [LIST_ITEM], queryFn: () => listItem([]) });
   const dehydratedState = dehydrate(queryClient);
   return (
     <Hydrate state={dehydratedState}>
-      <ItemLayout />
+      <ItemList />
     </Hydrate>
   );
 }
