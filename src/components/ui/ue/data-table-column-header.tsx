@@ -1,9 +1,20 @@
-import { ArrowDownIcon, ArrowUpIcon, CaretSortIcon, EyeNoneIcon } from "@radix-ui/react-icons";
+import { ArrowDownIcon, ArrowUpIcon, CaretSortIcon, ChevronRightIcon, EyeNoneIcon, InputIcon } from "@radix-ui/react-icons";
 import { Column } from "@tanstack/react-table";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useEffect, useState } from "react";
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
@@ -11,6 +22,8 @@ interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes
 }
 
 export function DataTableColumnHeader<TData, TValue>({ column, title, className }: DataTableColumnHeaderProps<TData, TValue>) {
+  const [Filter, setFilter] = useState(column.getFilterValue());
+
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
@@ -40,15 +53,32 @@ export function DataTableColumnHeader<TData, TValue>({ column, title, className 
             Desc
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <InputIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+              Filter
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  column.setFilterValue(Filter);
+                }}
+              >
+                <Input type="text" placeholder={title} onChange={(e) => setFilter(e.target.value)} />
+              </form>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+          <DropdownMenuSeparator />
+          {/* <DropdownMenuItem
             onClick={() => {
               column.setFilterValue("item1");
             }}
           >
-            <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            <InputIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
             filter
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator /> */}
           <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
             <EyeNoneIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
             Hide

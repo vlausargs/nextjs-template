@@ -7,7 +7,17 @@ import Hydrate from "../Hydrate";
 
 export default async function ItemWrapper() {
   const queryClient = getCacheQueryClient();
-  await queryClient.prefetchQuery({ queryKey: [LIST_ITEM], queryFn: () => listItem([]) });
+  await queryClient.prefetchQuery({
+    queryKey: [LIST_ITEM],
+    queryFn: () =>
+      listItem({
+        query: [],
+        pagination: {
+          page: 1,
+          perPage: 10,
+        },
+      }),
+  });
   const dehydratedState = dehydrate(queryClient);
   return (
     <Hydrate state={dehydratedState}>

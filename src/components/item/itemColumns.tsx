@@ -30,6 +30,10 @@ export type Task = z.infer<typeof itemSchema>;
 
 export const columns: ColumnDef<Task>[] = [
   {
+    id: "actions",
+    cell: ({ row }) => <DataTableRowActions row={row} />,
+  },
+  {
     id: "select",
     header: ({ table }) => (
       <Checkbox
@@ -52,71 +56,89 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "id",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Task" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="ID" />
+    ),
     cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: "sku",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="SKU" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="SKU" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">{row.getValue("sku")}</span>
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("sku")}
+          </span>
         </div>
       );
     },
   },
   {
     accessorKey: "name",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">{row.getValue("name")}</span>
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("name")}
+          </span>
         </div>
       );
     },
   },
   {
     accessorKey: "desc",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Description" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Description" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">{row.getValue("desc")}</span>
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("desc")}
+          </span>
         </div>
       );
     },
   },
   {
     accessorKey: "price",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Price" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Price" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">{row.getValue("price")}</span>
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("price")}
+          </span>
         </div>
       );
     },
   },
   {
     accessorKey: "status",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="status" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="status" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">{row.getValue("status")}</span>
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("status")}
+          </span>
         </div>
       );
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue("status"));
     },
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];
